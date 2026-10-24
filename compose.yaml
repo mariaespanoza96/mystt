@@ -1,0 +1,11 @@
+services:
+  transcribe-listener:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    init: true
+    # Voice receives Opus over UDP; nothing needs to be published.
+    # Reach the whisper server on the host: set STT_URL to
+    # http://host.docker.internal:8090/v1/audio/transcriptions in .env.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
